@@ -26,7 +26,8 @@ use Farly::Rule::Expander;
 my %opts;
 my $search_parser;
 my $search;
-my $search_method = 'search';
+
+print "\n";
 
 if ( GetOptions( \%opts, 'file=s', 'id=s', 'action=s', 'p=s', 's=s', 'd=s', 'help|?' ) )
 {
@@ -55,7 +56,7 @@ else {
 	usage();
 }
 
-print "\nsearching...\n\n";
+print "searching...\n\n";
 
 my $importer = Farly->new();
 
@@ -79,7 +80,7 @@ foreach my $rule_object ( $search_result->iter() ) {
 
 }
 
-foreach my $port ( keys %ports ) {
+foreach my $port ( sort keys %ports ) {
 	print "$port\n";
 }
 
