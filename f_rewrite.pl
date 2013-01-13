@@ -19,6 +19,7 @@
 use strict;
 use warnings;
 use Getopt::Long;
+use Pod::Usage;
 use Farly;
 use Farly::ASA::ProtocolFormatter;
 use Farly::Rule::Expander;
@@ -29,39 +30,36 @@ use Farly::ASA::ICMPFormatter;
 
 my %opts;
 
-if ( GetOptions( \%opts, 'file=s', 'id=s', 'groupby=s', 'output=s', 'help|?' ) )
-{
-	if ( defined $opts{'help'} || defined $opts{'?'} ) {
-		usage();
-	}
+GetOptions( \%opts, 'file=s', 'id=s', 'groupby=s', 'output=s', 'help', 'man' ) or pod2usage(2);
 
-	if ( !defined $opts{'file'} ) {
-		usage("Please specify a configuration file");
-	}
+pod2usage(1) if ( defined $opts{'help'} );
 
-	if ( !-f $opts{'file'} ) {
-		usage("Please specify a valid configuration file");
-	}
+pod2usage( -verbose => 2 ) if ( defined $opts{'man'} );
 
-	if ( !defined $opts{'id'} ) {
-		usage("Please specify an access-list ID");
-	}
-
-	if ( !defined $opts{'groupby'} ) {
-		usage("Please specify a 'group by' property");
-	}
-
-	if ( $opts{'groupby'} !~ /DST_PORT|SRC_IP|DST_IP|SRC_PORT/ ) {
-		usage("Please check the 'group by' property");
-	}
-
-	if ( !defined $opts{'output'} ) {
-		usage("Please specify an output file name");
-	}
+if ( !defined $opts{'file'} ) {
+	pod2usage("Please specify a configuration file");
 }
-else {
-	usage();
+
+if ( !-f $opts{'file'} ) {
+	pod2usage("Please specify a valid configuration file");
 }
+
+if ( !defined $opts{'id'} ) {
+	pod2usage("Please specify an access-list ID");
+}
+
+if ( !defined $opts{'groupby'} ) {
+	pod2usage("Please specify a 'group by' property");
+}
+
+if ( $opts{'groupby'} !~ /DST_PORT|SRC_IP|DST_IP|SRC_PORT/ ) {
+	pod2usage("Please check the 'group by' property");
+}
+
+if ( !defined $opts{'output'} ) {
+	pod2usage("Please specify an output file name");
+}
+
 
 my $property = $opts{'groupby'};
 my $output   = $opts{'output'};
@@ -472,36 +470,64 @@ sub display_object {
 	print "\n";
 }
 
-sub usage {
-	my ($err) = @_;
-	
-	print qq{
+__END__
 
-  f_rewrite.pl  -  Interactively re-write an access-list using user specified
-                   group ID's.
+=head1 NAME
 
-Usage:
+f_rewrite.pl  -  Interactively re-write an access-list using user specified group ID's.
 
-  f_rewrite.pl --file <file> --id <access-list id> --groupby <DST_PORT|SRC_IP|DST_IP|SRC_PORT> --output <file>
+=head1 SYNOPSIS
 
-Options:
+f_rewrite.pl --file INPUT_FILE --id ID --groupby PROPERTY --output OUTPUT_FILE
 
-  --help|?      This info
+=head1 DESCRIPTION
 
-  --file        The firewall configuration file
+B<f_rewrite.pl> is used to interactively rewrite a firewall configuration in order to
+create accurate and logically named groups.
 
-  --id          The access-list id to rewrite
+By running B<f_rewrite.pl> repeatedly an expanded firewall configuration can be shrunk
+to a minimal number of configuration lines.
 
-  --groupby     Must be one of DST_PORT, SRC_IP, DST_IP or SRC_PORT
+B<f_rewrite.pl> will use existing group ID's.
 
-  --output      Write the group by commands to this file
+=head1 OPTIONS
 
-};
+=over 8
 
-	if ( defined $err ) {
-		print "Error:\n\n";
-		print "$err\n";
-	}
+=item B<--file FILE>
 
-	exit;
-}
+B<Required> firewall configuration FILE. 
+
+=item B<--id ID>
+
+Run optimization the specified rule ID
+
+=item B<--groupby PROPERTY>
+
+Must be one of DST_PORT, SRC_IP, DST_IP or SRC_PORT
+
+=item B<--output OUTPUT_FILE>
+
+Write the group by commands to this file
+
+=item B<--help>
+
+Prints a brief help message and exits.
+
+=item B<--man>
+
+Prints the manual page and exits.
+
+=back
+
+=head1 EXAMPLES
+
+Run a full firewall rewrite. The --output commands are applied to the firewall before running the next f_rewrite.pl command.
+
+f_rewrite.pl --file cfg.txt --id outside-in --groupby DST_PORT --output new_dst_port_groups.txt
+
+f_rewrite.pl --file cfg_with_dport_groups.txt --id outside-in --groupby SRC_IP --output new_src_groups.txt
+
+f_rewrite.pl --file cfg_with_dport_src_groups.txt --id outside-in --groupby DST_IP --output new_dst_groups.txt
+
+=cut

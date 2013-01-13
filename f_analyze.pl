@@ -20,6 +20,7 @@
 use strict;
 use warnings;
 use Getopt::Long;
+use Pod::Usage;
 use Farly;
 use Farly::Rule::Expander;
 use Farly::Rule::Optimizer;
@@ -32,41 +33,35 @@ use Farly::ASA::ICMPFormatter;
 my %opts;
 my $search = Object::KVC::Hash->new();
 
-if ( GetOptions( \%opts, 'file=s', 'id=s', 'verbose', 'new', 'remove', 'help|?' ) )
-{
-	if ( defined $opts{'help'} || defined $opts{'?'} ) {
-		usage();
-	}
-	
-	if ( ! defined $opts{'file'} ) {
-		usage("Please specify a valid configuration file");
-	}
-	
-	if ( !-f $opts{'file'} ) {
-		usage("Please specify a valid configuration file");
-	}
+GetOptions( \%opts, 'file=s', 'id=s', 'verbose', 'new', 'remove', 'help', 'man' ) or pod2usage(2);
 
-	if ( ! defined $opts{'id'} ) {
-		usage("Please specify an access-list ID");
-	}
+pod2usage(1) if ( defined $opts{'help'} );
 
-	eval {
-		$search->set( 'ENTRY' => Object::KVC::String->new( 'RULE' ) );
-		$search->set( 'ID'    => Object::KVC::String->new( $opts{'id'} ) );
-	};
-	if ($@) {
-		usage($@);
-	}
-}
-else {
-	usage();
+pod2usage( -verbose => 2 ) if ( defined $opts{'man'} );
+
+if ( ! defined $opts{'file'} ) {
+	pod2usage( "Please specify a valid configuration file" );
 }
 
-my $file = $opts{'file'};
+if ( !-f $opts{'file'} ) {
+	pod2usage("Please specify a valid configuration file");
+}
+
+if ( ! defined $opts{'id'} ) {
+	pod2usage("Please specify an access-list ID");
+}
+
+eval {
+	$search->set( 'ENTRY' => Object::KVC::String->new( 'RULE' ) );
+	$search->set( 'ID'    => Object::KVC::String->new( $opts{'id'} ) );
+};
+if ($@) {
+	pod2usage($@);
+}
 
 my $importer = Farly->new();
 
-my $container = $importer->process( "ASA", $file );
+my $container = $importer->process( "ASA", $opts{'file'} );
 
 my $rule_expander = Farly::Rule::Expander->new($container);
 
@@ -177,38 +172,59 @@ sub display {
 	}
 }
 
-sub usage {
-	my ($err) = @_;
+__END__
 
-	print qq{
+=head1 NAME
 
-  f_analyze.pl  -  Find duplicate and shadowed firewall rules
+f_analyze.pl - Find duplicate and shadowed firewall rules
 
-Usage:
+=head1 SYNOPSIS
 
-  f_analyze.pl --file <file name> --id <id> --verbose {--new|--remove}
+f_analyze.pl --file <file name> --id <id> --verbose {--new|--remove}
 
-  --help|?            Help information
+=head1 DESCRIPTION
 
-Required Options:
+B<f_analyze.pl> finds duplicate and shadowed firewall rules. A specific 
+firewall configuration and access-list ID must be specified.
 
-  --file <hostname>   Run optimization for specified firewall
-  --id <id>           Run optimization the specified firewall rule set
+=head1 OPTIONS
 
-Report type:
+=over 8
 
-  --verbose           "verbose" displays all errors found along with the duplicate
-                      or shadowing rule
+=item B<--file FILE>
 
-  --new               "new" returns an optimised rule set in expanded format
+B<Required> firewall configuration FILE. 
 
-  --remove            "remove" returns all expanded rules which are errors 
+=item B<--id ID>
 
-};
+Run for the specified rule ID.
 
-	if ( defined $err ) {
-		print "Error:\n\n";
-		print "$err\n";
-	}
-	exit;
-}
+=item B<--verbose>
+
+Displays a detailed report showing all duplicate or shadowed rules.
+
+=item B<--new>
+
+Returns an optimised rule set in expanded format.
+
+=item B<--remove>
+
+Returns all expanded rules which are errors.
+
+=item B<--help>
+
+Prints a brief help message and exits.
+
+=item B<--man>
+
+Prints the manual page and exits.
+
+=back
+
+=head1 EXAMPLES
+
+Print a detailed analysis and new rule set.
+
+    f_analyze.pl --file fw_config.txt --id outside-in --verbose --new
+    
+=cut

@@ -19,6 +19,7 @@
 use strict;
 use warnings;
 use Getopt::Long;
+use Pod::Usage;
 use Farly;
 use Farly::Opts::Search;
 use Farly::Rule::Expander;
@@ -27,33 +28,26 @@ my %opts;
 my $search_parser;
 my $search;
 
-print "\n";
+GetOptions( \%opts, 'file=s', 'id=s', 'action=s', 'p=s', 's=s', 'd=s', 'help', 'man' ) or pod2usage(2);
 
-if ( GetOptions( \%opts, 'file=s', 'id=s', 'action=s', 'p=s', 's=s', 'd=s', 'help|?' ) )
-{
-	if ( defined $opts{'help'} || defined $opts{'?'} ) {
-		usage();
-	}
+pod2usage(1) if ( defined $opts{'help'} );
 
-	if ( !defined $opts{'file'} ) {
-		usage("Please specify a configuration file");
-	}
+pod2usage( -verbose => 2 ) if ( defined $opts{'man'} );
 
-	if ( !-f $opts{'file'} ) {
-		usage("Please specify a valid configuration file");
-	}
-
-	eval {
-		$search_parser = Farly::Opts::Search->new( \%opts );
-		$search        = $search_parser->search();
-	};
-	if ($@) {
-		usage($@);
-	}
-
+if ( !defined $opts{'file'} ) {
+	pod2usage("Please specify a configuration file");
 }
-else {
-	usage();
+
+if ( !-f $opts{'file'} ) {
+	pod2usage("Please specify a valid configuration file");
+}
+
+eval {
+	$search_parser = Farly::Opts::Search->new( \%opts );
+	$search        = $search_parser->search();
+};
+if ($@) {
+	pod2usage($@);
 }
 
 print "searching...\n\n";
@@ -84,44 +78,71 @@ foreach my $port ( sort keys %ports ) {
 	print "$port\n";
 }
 
-sub usage {
-	my ($err) = @_;
+__END__
 
-	print qq{
+=head1 NAME
 
-  f_list_ports.pl  -  List all unique destination ports associated with the
-                      specified rules, hosts, subnets, or protocols.
+f_list_ports.pl - List all unique destination ports associated with the
+                  specified rules, hosts, subnets, or protocols.
 
-Usage:
+=head1 SYNOPSIS
 
-  f_list_ports.pl [option] [value]
+f_list_ports.pl --option VALUE
 
-Help:
+=head1 DESCRIPTION
 
-  f_list_ports.pl --help|-?
+B<f_list_ports.pl> lists all unique destination ports associated with the specified
+rules, hosts, subnets, or protocols. Output of this script may be used for firewall
+security audits or configuration of other network security tools.
 
-Mandatory configuration file:
+=head1 OPTIONS
 
-  --file <file name>  The firewall configuration file
+=over 8
 
-Layer 3 and 4 search options:
+=item B<--file FILE>
 
-  -p <protocol>       Protocol
-  -s <ip address>     Source IP Address or Network
-  -d <ip>             Destination IP Address or Network
+B<Required> firewall configuration FILE. 
 
-  Usage of subnet mask format requires quotes, for
-  example -d "192.168.1.0 255.255.255.0"
+=item B<--id ID>
 
-Configure the search:
+Run the search for the specified rule ID. Is required.
 
-  --id <string>            Specify an access-list ID
-  --action <permit|deny>   Limit results to rules of the specified action
-};
+=item B<--action permit|deny>
 
-	if ( defined $err ) {
-		print "Error:\n\n";
-		print "$err\n";
-	}
-	exit;
-}
+Specify the firewall rule action to match.
+
+=item B<-p PROTOCOL> 
+
+Search for rules using the specified protocol. Can be a text ID such as tcp or udp, or a protocol number.
+
+Not required, but is recommended or no distinction will be made between TCP and UDP.
+
+=item B<-s ADDRESS>
+
+Source IP Address, Network or FQDN
+
+B<Important: Usage of subnet mask format requires quotes>, for example -d "192.168.1.0 255.255.255.0"
+
+=item B<-d ADDRESS>
+
+Destination IP Address, Network or FQDN
+
+B<Important: Usage of subnet mask format requires quotes>, for example -d "192.168.1.0 255.255.255.0"
+
+=item B<--help>
+
+Prints a brief help message and exits.
+
+=item B<--man>
+
+Prints the manual page and exits.
+
+=back
+
+=head1 EXAMPLES
+
+List all outside TCP ports open between 10.0.0.0/8 and 192.168.1.0/24
+
+    f_search.pl --file fw_config.txt --id outside-in --action permit -p tcp -s 10.0.0.0/8 -d 192.168.1.0/24
+
+=cut
