@@ -87,7 +87,7 @@ f_list_ports.pl - List all unique destination ports associated with the
 
 =head1 SYNOPSIS
 
-f_list_ports.pl --option VALUE
+f_list_ports.pl --file FILE --option VALUE
 
 =head1 DESCRIPTION
 

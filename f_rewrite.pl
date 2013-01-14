@@ -478,7 +478,7 @@ f_rewrite.pl  -  Interactively re-write an access-list using user specified grou
 
 =head1 SYNOPSIS
 
-f_rewrite.pl --file INPUT_FILE --id ID --groupby PROPERTY --output OUTPUT_FILE
+f_rewrite.pl --file FILE --id ID --groupby PROPERTY --output OUTPUT_FILE
 
 =head1 DESCRIPTION
 
@@ -500,15 +500,15 @@ B<Required> firewall configuration FILE.
 
 =item B<--id ID>
 
-Run optimization the specified rule ID
+Run for the specified rule ID.
 
 =item B<--groupby PROPERTY>
 
-Must be one of DST_PORT, SRC_IP, DST_IP or SRC_PORT
+Must be one of DST_PORT, SRC_IP, DST_IP or SRC_PORT.
 
 =item B<--output OUTPUT_FILE>
 
-Write the group by commands to this file
+Write the group by commands to this file.
 
 =item B<--help>
 
@@ -522,7 +522,9 @@ Prints the manual page and exits.
 
 =head1 EXAMPLES
 
-Run a full firewall rewrite. The --output commands are applied to the firewall before running the next f_rewrite.pl command.
+Run a full firewall rewrite. The cfg.txt "outside-in" rules are expanded and optimized. 
+The --output commands are applied to the firewall before running the next f_rewrite.pl
+command.
 
 f_rewrite.pl --file cfg.txt --id outside-in --groupby DST_PORT --output new_dst_port_groups.txt
 

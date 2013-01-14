@@ -180,7 +180,7 @@ f_analyze.pl - Find duplicate and shadowed firewall rules
 
 =head1 SYNOPSIS
 
-f_analyze.pl --file <file name> --id <id> --verbose {--new|--remove}
+f_analyze.pl --file FILE --id ID --verbose --new|--remove
 
 =head1 DESCRIPTION
 

@@ -89,12 +89,14 @@ f_remove.pl - Generates firewall configurations needed to remove
 
 =head1 SYNOPSIS
 
-f_remove.pl --file FILE [ --host IP | --net NETWORK ]
+f_remove.pl --file FILE --host IP | --net NETWORK
 
 =head1 DESCRIPTION
 
 B<f_remove.pl> removes all references to the specified IP address or network. It takes groups and group dependencies into account.
 i.e. A rule referencing a group with only one entry will be removed before the group is removed.
+
+If a network is specified then any references to hosts within that network will also be removed from the configuration.
 
 =head1 OPTIONS
 

@@ -174,7 +174,7 @@ f_search.pl - Search firewall configurations for all references to the
 
 =head1 SYNOPSIS
 
-f_search.pl --file FILE --option [VALUE]
+f_search.pl --file FILE --option VALUE
 
 =head1 DESCRIPTION
 
@@ -270,15 +270,15 @@ Display all rules which permit connectivity to 192.168.2.1 tcp/80:
 
     f_search.pl --file config.txt -d 192.168.2.1 --dport www
 
-Display all permit rules, on any firewall, with a source IP address of "any":
+Display all permit rules with a source IP address of "any":
 
-    f_search.pl --file config.txt --all --matches --action permit -s "0.0.0.0 0.0.0.0"
+    f_search.pl --file config.txt --matches --action permit -s "0.0.0.0 0.0.0.0"
 
-Display all rules, on any firewall, permitting telnet:
+Display all rules permitting telnet:
 
-    f_search.pl --file config.txt --all --matches --dport telnet
+    f_search.pl --file config.txt --matches --dport telnet
 
-Report all connectivity to subnet 192.168.3.0/24, database port 1433 from external locations:
+Report external connectivity to subnet 192.168.3.0/24, port 1433, from external locations:
 
     f_search.pl --file config.txt -d 192.168.3.0/24 --dport 1433 --exclude-src internal_networks.txt
 
