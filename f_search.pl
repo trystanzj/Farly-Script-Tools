@@ -174,7 +174,7 @@ f_search.pl - Search firewall configurations for all references to the
 
 =head1 SYNOPSIS
 
-f_search.pl --file FILE --option VALUE
+f_search.pl --file FILE --option [VALUE]
 
 =head1 DESCRIPTION
 
@@ -213,7 +213,7 @@ Search for rules using the specified protocol. Can be a text ID such as tcp or u
 
 Source IP Address, Network or FQDN
 
-B<Important: Usage of subnet mask format requires quotes>, for example -d "192.168.1.0 255.255.255.0"
+B<Important: Usage of subnet mask format requires quotes>, for example -s "192.168.1.0 255.255.255.0"
 
 =item B<--sport PORT>
 
