@@ -1,8 +1,9 @@
 Farly Script Tools
 ==================
 
-Farly Script Tools are Perl scripts used to automate routine
-firewall management tasks.
+Farly Script Tools are Perl scripts used to automate firewall management
+tasks such as firewall audits, optimizations, subnet retirements, and
+configuration rewrites.
 
-They require version 0.11 or later of the Firewall Analysis and Rewrite
-Library (Farly).
+Version 0.12 of the Firewall Analysis and Rewrite Library (Farly) is
+required.
