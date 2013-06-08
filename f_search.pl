@@ -16,6 +16,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# Version = 0.20
+
 use strict;
 use warnings;
 use Getopt::Long;
@@ -89,7 +91,7 @@ my $rule_expander = Farly::Rule::Expander->new($container);
 
 my $expanded_rules = $rule_expander->expand_all();
 
-my $search_result = Object::KVC::List->new();
+my $search_result = Farly::Object::List->new();
 
 $expanded_rules->$search_method( $search, $search_result );
 
@@ -108,7 +110,7 @@ display( $search_result, \%opts );
 sub filter {
 	my ( $search_result, $filter ) = @_;
 
-	my $filtered_rule_set = Object::KVC::List->new();
+	my $filtered_rule_set = Farly::Object::List->new();
 
 	foreach my $rule_object ( $search_result->iter() ) {
 

@@ -16,6 +16,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# Version = 0.20
+
 use strict;
 use warnings;
 use Getopt::Long;
@@ -27,7 +29,7 @@ use Farly::Template::Cisco;
 my %opts;
 my $ip;
 
-GetOptions( \%opts, 'file=s', 'host=s', 'net=s', 'help', 'man' ) or pod2usage(2);
+GetOptions( \%opts, 'file=s', 'address=s', 'help', 'man' ) or pod2usage(2);
 
 pod2usage(1) if ( defined $opts{'help'} );
 
@@ -41,32 +43,37 @@ if ( !-f $opts{'file'} ) {
 	pod2usage("Please specify a valid configuration file");
 }
 
-if ( ! defined $opts{'host'} &&  ! defined $opts{'net'} ) {
-	pod2usage("Please specify a host or address to remove");	
-}
+if ( defined $opts{'address'} ) {
 
-eval {
-	if ( $opts{'host'} ) {
-		$ip = Farly::IPv4::Address->new( $opts{'host'} );
-	}
-	elsif ( $opts{'net'} ) {
-		$ip = Farly::IPv4::Network->new( $opts{'net'} );
-	}
-};
-if ($@) {
-	pod2usage($@);
+    my $address = $opts{'address'};
+
+    eval {
+        if ( $address =~ /((\d{1,3})((\.)(\d{1,3})){3})\s+((\d{1,3})((\.)(\d{1,3})){3})/ ) {
+            $ip = Farly::IPv4::Network->new($address);
+        }
+        elsif ( $address =~ /(\d{1,3}(\.\d{1,3}){3})(\/)(\d+)/ ) {
+            $ip = Farly::IPv4::Network->new($address);
+        }
+        elsif ( $address =~ /((\d{1,3})((\.)(\d{1,3})){3})/ ) {
+            $ip = Farly::IPv4::Address->new($address);
+        }
+    };
+    if ($@) {
+        pod2usage( "$0: invalid --address " . $opts{'address'} );
+        exit;
+    }
+
+}
+else {
+    pod2usage("$0: --address IP or --address NETWORK is required");
+    exit;
 }
 
 print "! remove\n\n";
 
-my $fw;
-eval {
-	my $importer = Farly->new();
-	$fw = $importer->process( "ASA", $opts{'file'} );
-};
-if ($@) {
-	pod2usage($@);
-}
+my $importer = Farly->new();
+
+my $fw = $importer->process( "ASA", $opts{'file'} );
 
 my $remover = Farly::Remove::Address->new($fw);
 
@@ -89,7 +96,7 @@ f_remove.pl - Generates firewall configurations needed to remove
 
 =head1 SYNOPSIS
 
-f_remove.pl --file FILE --host IP | --net NETWORK
+f_remove.pl --file FILE --address IP|NETWORK
 
 =head1 DESCRIPTION
 
@@ -102,17 +109,13 @@ If a network is specified then any references to hosts within that network will 
 
 =over 8
 
-=item B <--file FILE>
+=item B<--file FILE>
 
 B<Required> firewall configuration FILE. 
 
-=item B <--host IP>
+=item B<--address IP|NETWORK>
 
-Host IPv4 address.
-
-=item B <--net NETWORK>
-
-IPv4 Network in CIDR or dotted decimal mask format.  
+Host IPv4 address or IPv4 network in CIDR or dotted decimal mask format.  
 
 B<Important: Usage of subnet mask format requires quotes>, for example -d "192.168.1.0 255.255.255.0"
 
