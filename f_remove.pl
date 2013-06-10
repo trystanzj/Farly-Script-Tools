@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# Version = 0.20
+# Version 0.22
 
 use strict;
 use warnings;
