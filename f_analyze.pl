@@ -17,8 +17,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# Version = 0.20
-
 use strict;
 use warnings;
 use Getopt::Long;
