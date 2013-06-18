@@ -22,7 +22,7 @@ Download and install your preferred version of Perl. Popular Perl binaries for W
 include [Active Perl](http://www.activestate.com/activeperl/downloads "Active Perl"), and
 [Strawberry Perl](http://strawberryperl.com/ "Strawberry Perl").
 
-- - -
+* * *
 
 Open a C:\> command prompt with "Run as administrator" or terminal as "root." Start cpan:
 
