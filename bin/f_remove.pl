@@ -89,7 +89,7 @@ __END__
 
 =head1 NAME
 
-f_remove.pl - Generates firewall configurations needed to remove
+f_remove.pl - Generates firewall configuration commands needed to remove
               all references to the specified host or subnet.
 
 =head1 SYNOPSIS

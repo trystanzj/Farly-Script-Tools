@@ -1,0 +1,95 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title></title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body style="background-color: white">
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#OPTIONS">OPTIONS</a></li>
+  <li><a href="#EXAMPLES">EXAMPLES</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>f_rewrite.pl - Interactively re-write an access-list using user specified group ID&#39;s.</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<p>f_rewrite.pl --file FILE --id ID --groupby PROPERTY --output OUTPUT_FILE</p>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p><b>f_rewrite.pl</b> is used to interactively rewrite a firewall configuration in order to create accurate and logically named groups.</p>
+
+<p>By running <b>f_rewrite.pl</b> repeatedly an expanded firewall configuration can be shrunk to a minimal number of configuration lines.</p>
+
+<p><b>f_rewrite.pl</b> will use existing group ID&#39;s.</p>
+
+<h1 id="OPTIONS">OPTIONS</h1>
+
+<dl>
+
+<dt id="file-FILE"><b>--file FILE</b></dt>
+<dd>
+
+<p><b>Required</b> firewall configuration FILE.</p>
+
+</dd>
+<dt id="id-ID"><b>--id ID</b></dt>
+<dd>
+
+<p>Run for the specified rule ID.</p>
+
+</dd>
+<dt id="groupby-PROPERTY"><b>--groupby PROPERTY</b></dt>
+<dd>
+
+<p>Must be one of DST_PORT, SRC_IP, DST_IP or SRC_PORT.</p>
+
+</dd>
+<dt id="output-OUTPUT_FILE"><b>--output OUTPUT_FILE</b></dt>
+<dd>
+
+<p>Write the group by commands to this file.</p>
+
+</dd>
+<dt id="help"><b>--help</b></dt>
+<dd>
+
+<p>Prints a brief help message and exits.</p>
+
+</dd>
+<dt id="man"><b>--man</b></dt>
+<dd>
+
+<p>Prints the manual page and exits.</p>
+
+</dd>
+</dl>
+
+<h1 id="EXAMPLES">EXAMPLES</h1>
+
+<p>Run a full firewall rewrite. The cfg.txt &quot;outside-in&quot; rules are expanded and optimized. The --output commands are applied to the firewall before running the next f_rewrite.pl command.</p>
+
+<p>f_rewrite.pl --file cfg.txt --id outside-in --groupby DST_PORT --output new_dst_port_groups.txt</p>
+
+<p>f_rewrite.pl --file cfg_with_dport_groups.txt --id outside-in --groupby SRC_IP --output new_src_groups.txt</p>
+
+<p>f_rewrite.pl --file cfg_with_dport_src_groups.txt --id outside-in --groupby DST_IP --output new_dst_groups.txt</p>
+
+
+</body>
+
+</html>
+
+

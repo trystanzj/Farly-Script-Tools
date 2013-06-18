@@ -169,7 +169,7 @@ __END__
 
 =head1 NAME
 
-f_search.pl - Search firewall configurations for all references to the
+f_search.pl - Search firewall rules for all references to the
               specified host, subnet, ports or protocols.
 
 =head1 SYNOPSIS
@@ -178,16 +178,13 @@ f_search.pl --file FILE --option [VALUE]
 
 =head1 DESCRIPTION
 
-B<f_search.pl> searches firewall configurations by source IP, source port, 
+B<f_search.pl> searches firewall rules by ID, source IP, source port, 
 destination IP, destination port or any combination of the above. 
 
 The configurable search options are "matches" and "contains." The default option 
 is "search" which returns every rule that could possibly match the given Layer 3 or
 Layer 4 options. This means a search IP range larger than ranges on the firewall will
 still return results.
-
-f_search.pl can be used for day to day firewall troubleshooting or automated
-verification of organization specific firewall security policies.
 
 =head1 OPTIONS
 
@@ -217,7 +214,7 @@ B<Important: Usage of subnet mask format requires quotes>, for example -s "192.1
 
 =item B<--sport PORT>
 
-Source Port Name or Number
+Source port name or number
 
 =item B<-d ADDRESS>
 
@@ -227,7 +224,7 @@ B<Important: Usage of subnet mask format requires quotes>, for example -d "192.1
 
 =item B<--dport PORT>
 
-Destination Port Name or Number
+Destination port name or number
 
 =item B<--matches>
 
@@ -244,7 +241,7 @@ The remove option can be used to generate the commands needed to remove the sear
 =item B<--exclude-src FILE>
 
 Specify a FILE with a list of source IPv4 networks to exclude from the search results.
-The typical use case for this option would be to audit connectivity to important locations in the network.
+The typical use case for this option would be to audit external connectivity to important locations in the network.
 
 =item B<--exclude-dst FILE>
 

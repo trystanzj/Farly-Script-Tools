@@ -1,0 +1,163 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title></title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body style="background-color: white">
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#OPTIONS">OPTIONS</a></li>
+  <li><a href="#EXAMPLES">EXAMPLES</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>f_search.pl - Search firewall rules for all references to the specified host, subnet, ports or protocols.</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<p>f_search.pl --file FILE --option [VALUE]</p>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p><b>f_search.pl</b> searches firewall rules by ID, source IP, source port, destination IP, destination port or any combination of the above.</p>
+
+<p>The configurable search options are &quot;matches&quot; and &quot;contains.&quot; The default option is &quot;search&quot; which returns every rule that could possibly match the given Layer 3 or Layer 4 options. This means a search IP range larger than ranges on the firewall will still return results.</p>
+
+<h1 id="OPTIONS">OPTIONS</h1>
+
+<dl>
+
+<dt id="file-FILE"><b>--file FILE</b></dt>
+<dd>
+
+<p><b>Required</b> firewall configuration FILE.</p>
+
+</dd>
+<dt id="id-ID"><b>--id ID</b></dt>
+<dd>
+
+<p>Run the search for the specified rule ID.</p>
+
+</dd>
+<dt id="action-permit-deny"><b>--action permit|deny</b></dt>
+<dd>
+
+<p>Specify the firewall rule action to match.</p>
+
+</dd>
+<dt id="p-PROTOCOL"><b>-p PROTOCOL</b></dt>
+<dd>
+
+<p>Search for rules using the specified protocol. Can be a text ID such as tcp or udp, or a protocol number.</p>
+
+</dd>
+<dt id="s-ADDRESS"><b>-s ADDRESS</b></dt>
+<dd>
+
+<p>Source IP Address, Network or FQDN</p>
+
+<p><b>Important: Usage of subnet mask format requires quotes</b>, for example -s &quot;192.168.1.0 255.255.255.0&quot;</p>
+
+</dd>
+<dt id="sport-PORT"><b>--sport PORT</b></dt>
+<dd>
+
+<p>Source port name or number</p>
+
+</dd>
+<dt id="d-ADDRESS"><b>-d ADDRESS</b></dt>
+<dd>
+
+<p>Destination IP Address, Network or FQDN</p>
+
+<p><b>Important: Usage of subnet mask format requires quotes</b>, for example -d &quot;192.168.1.0 255.255.255.0&quot;</p>
+
+</dd>
+<dt id="dport-PORT"><b>--dport PORT</b></dt>
+<dd>
+
+<p>Destination port name or number</p>
+
+</dd>
+<dt id="matches"><b>--matches</b></dt>
+<dd>
+
+<p>Will match the given search options exactly.</p>
+
+</dd>
+<dt id="contains"><b>--contains</b></dt>
+<dd>
+
+<p>Will find rules which the firewall would match.</p>
+
+</dd>
+<dt id="remove"><b>--remove</b></dt>
+<dd>
+
+<p>The remove option can be used to generate the commands needed to remove the search result from the firewalls.</p>
+
+</dd>
+<dt id="exclude-src-FILE"><b>--exclude-src FILE</b></dt>
+<dd>
+
+<p>Specify a FILE with a list of source IPv4 networks to exclude from the search results. The typical use case for this option would be to audit external connectivity to important locations in the network.</p>
+
+</dd>
+<dt id="exclude-dst-FILE"><b>--exclude-dst FILE</b></dt>
+<dd>
+
+<p>Specify a FILE with a list of destination IPv4 networks to exclude from the search results.</p>
+
+</dd>
+<dt id="help"><b>--help</b></dt>
+<dd>
+
+<p>Prints a brief help message and exits.</p>
+
+</dd>
+<dt id="man"><b>--man</b></dt>
+<dd>
+
+<p>Prints the manual page and exits.</p>
+
+</dd>
+</dl>
+
+<h1 id="EXAMPLES">EXAMPLES</h1>
+
+<p>Display all rules which permit connectivity to 192.168.2.1:</p>
+
+<pre><code>    f_search.pl --file config.txt -d 192.168.2.1</code></pre>
+
+<p>Display all rules which permit connectivity to 192.168.2.1 tcp/80:</p>
+
+<pre><code>    f_search.pl --file config.txt -d 192.168.2.1 --dport www</code></pre>
+
+<p>Display all permit rules with a source IP address of &quot;any&quot;:</p>
+
+<pre><code>    f_search.pl --file config.txt --matches --action permit -s &quot;0.0.0.0 0.0.0.0&quot;</code></pre>
+
+<p>Display all rules permitting telnet:</p>
+
+<pre><code>    f_search.pl --file config.txt --matches --dport telnet</code></pre>
+
+<p>Report external connectivity to subnet 192.168.3.0/24, port 1433, from external locations:</p>
+
+<pre><code>    f_search.pl --file config.txt -d 192.168.3.0/24 --dport 1433 --exclude-src internal_networks.txt</code></pre>
+
+
+</body>
+
+</html>
+
+

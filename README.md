@@ -5,5 +5,66 @@ Farly Script Tools are Perl scripts for automating firewall management
 tasks such as firewall audits, optimizations, cleanups, and configuration
 rewrites.
 
+All Farly Script Tools take a single firewall configuration file
+as input and generate simple text reports.  Farly Script Tools can display the
+commands required to fix the firewall configuration issues discovered.
+
+Farly Script Tools support Cisco ASA version 7.2 and higher as well as Cisco FWSM 3.x
+and higher.
+
 Version 0.24 of the Firewall Analysis and Rewrite Library (Farly) is
 required.
+
+Installation
+------------
+
+Download and install your preferred version of Perl. Popular Perl binaries for Windows
+include [Active Perl](http://www.activestate.com/activeperl/downloads "Active Perl"), and
+[Strawberry Perl](http://strawberryperl.com/).
+
+Open a C:\> command prompt with "Run as administrator" or terminal and start cpan as "root":
+
+> *cpan*
+
+At the cpan prompt, install Farly:
+
+> *cpan> install Farly* 
+
+This will install all the libraries required to run the Farly Script Tool scripts.
+
+Download [Farly Script Tools](https://github.com/trystanzj/Farly-Script-Tools/archive/master.zip)
+
+Unzip the file. On Windows copy the f_*.pl files in bin/ to %PERL_DIR%/perl/site/bin. On Linux copy
+the f_*.pl files to /usr/local/bin/
+
+Usage
+---------
+
+f_search.pl can be used for day to day firewall troubleshooting, automated verification of organization
+specific firewall security policies, or even firewall configuration cleanups.
+
+f_search.pl can search firewall access-lists by ID, source IP, source port, destination IP,
+destination port or any combination of the above.  Search behaviour is customizable through the 
+use of the --matches or --contains options.
+
+
+f_analyze.pl can help you ensure that your firewall configurations are free of technical mistakes.
+ 
+f_analyze.pl finds, reports on, and generates firewall configuration commands needed to remove duplicate
+or overlapping firewall rules.
+
+f_remove.pl makes it much easier to keep your firewall configurations up to date without the risk of
+outage causing typo’s.
+
+f_remove.pl generates the firewall configuration commands needed to remove all references to a retired
+host or network.
+
+f_rewrite.pl is for interactive firewall configuration re-writes.
+
+Running f_rewrite.pl on the output of f_analyze.pl is a simple way to update and standardize your
+legacy firewall configuration object-group names.
+
+
+
+
+

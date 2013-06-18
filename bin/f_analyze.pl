@@ -33,7 +33,7 @@ use Farly::ASA::ICMPFormatter;
 my %opts;
 my $search = Farly::Object->new();
 
-GetOptions( \%opts, 'file=s', 'id=s', 'verbose', 'new', 'remove', 'help', 'man' ) or pod2usage(2);
+GetOptions( \%opts, 'file=s', 'id=s', 'verbose', 'new=s', 'remove', 'help', 'man' ) or pod2usage(2);
 
 pod2usage(1) if ( defined $opts{'help'} );
 
@@ -102,7 +102,7 @@ $l3_optimizer->run();
 if ( defined $opts{'new'} ) {
 
     print "\n! new\n\n";
-    display( $l3_optimizer->optimized() );
+    display( $l3_optimizer->optimized(), \%opts );
 
 }
 elsif ( defined $opts{'remove'} ) {
@@ -141,6 +141,9 @@ sub display {
         if ( !defined $opts{'remove'} ) {
             $rule_object->delete_key('LINE');
         }
+        if ( defined $opts{'new'} ) {
+            $rule_object->set('ID', Farly::Value::String->new($opts{'new'}) );
+        }
         $template->as_string($rule_object);
         print "\n";
     }
@@ -154,12 +157,12 @@ f_analyze.pl - Find duplicate and shadowed firewall rules
 
 =head1 SYNOPSIS
 
-f_analyze.pl --file FILE --id ID [--verbose] --new|--remove
+f_analyze.pl --file FILE --id ID [--verbose] --new ID | --remove
 
 =head1 DESCRIPTION
 
 B<f_analyze.pl> finds duplicate and shadowed firewall rules. A specific 
-firewall configuration and access-list ID must be specified.
+firewall configuration file and access-list ID must be specified.
 
 =head1 OPTIONS
 
@@ -171,19 +174,19 @@ B<Required> firewall configuration FILE.
 
 =item B<--id ID>
 
-Run for the specified rule ID.
+Run analysis for the specified rule ID.
 
 =item B<--verbose>
 
 Displays a detailed report showing all duplicate or shadowed rules.
 
-=item B<--new>
+=item B<--new ID>
 
-Returns an optimised rule set in expanded format.
+Displays an optimised rule set in expanded format with the new ID.
 
 =item B<--remove>
 
-Returns all expanded rules which are errors.
+Displays the commands required to remove unneeded firewall rule entries.
 
 =item B<--help>
 
@@ -199,6 +202,6 @@ Prints the manual page and exits.
 
 Print a detailed analysis and new rule set.
 
-    f_analyze.pl --file fw_config.txt --id outside-in --verbose --new
+    f_analyze.pl --file fw_config.txt --id outside-in --verbose --new outside-in-new
     
 =cut
