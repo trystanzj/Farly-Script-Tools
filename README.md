@@ -43,7 +43,7 @@ If everything is working the Farly Script Tools can then be run in the command p
 Usage
 -----
 
-**[f_search.pl](https://github.com/trystanzj/Farly-Script-Tools/blob/master/doc/f_search.html "f_search.pl")** can be 
+**[f_search.pl](https://github.com/trystanzj/Farly-Script-Tools/wiki/f_search.pl "f_search.pl")** can be 
 used for day to day firewall troubleshooting, automated verification of organization specific firewall security
 policies, or even firewall configuration cleanups.
 
@@ -69,7 +69,7 @@ host or network.
 
 * * *
 
-**[f_rewrite.pl](https://github.com/trystanzj/Farly-Script-Tools/blob/master/doc/f_rewrite.html "f_rewrite.pl")** is
+**[f_rewrite.pl](https://github.com/trystanzj/Farly-Script-Tools/wiki/f_rewrite.pl "f_rewrite.pl")** is
 for interactive firewall configuration re-writes.
 
 Running f_rewrite.pl on the output of f_analyze.pl is a simple way to update and standardize your
