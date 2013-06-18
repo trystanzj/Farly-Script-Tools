@@ -18,13 +18,13 @@ required.
 Installation
 ------------
 
-Download and install your preferred version of Perl. Popular Perl binaries for Windows
-include [Active Perl](http://www.activestate.com/activeperl/downloads "Active Perl"), and
+Download and install your preferred version of Perl. Some Perl distributions for Windows
+are [Active Perl](http://www.activestate.com/activeperl/downloads "Active Perl"), and
 [Strawberry Perl](http://strawberryperl.com/ "Strawberry Perl").
 
 * * *
 
-Open a C:\> command prompt with "Run as administrator" or terminal as "root." Start cpan:
+Open a C:\> command prompt with "Run as administrator" or terminal as "root" and start cpan:
 
 > cpan
 
