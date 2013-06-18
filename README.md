@@ -53,7 +53,7 @@ use of the --matches or --contains options.
 
 * * *
 
-**[f_analyze.pl](https://github.com/trystanzj/Farly-Script-Tools/blob/master/doc/f_analyze.html "f_analyze.pl")** can help 
+**[f_analyze.pl](https://github.com/trystanzj/Farly-Script-Tools/wiki/f_analyze.pl "f_analyze.pl")** can help 
 you ensure that your firewall configurations are free of technical mistakes.
  
 f_analyze.pl finds, reports on, and generates firewall configuration commands needed to remove duplicate
@@ -61,7 +61,7 @@ or overlapping firewall rules.
 
 * * *
 
-**[f_remove.pl](https://github.com/trystanzj/Farly-Script-Tools/blob/master/doc/f_remove.html "f_remove.pl")** makes 
+**[f_remove.pl](https://github.com/trystanzj/Farly-Script-Tools/wiki/f_remove.pl "f_remove.pl")** makes 
 it much easier to keep your firewall configurations up to date without the risk of outage causing typo’s.
 
 f_remove.pl generates the firewall configuration commands needed to remove all references to a retired
