@@ -26,11 +26,11 @@ are [Active Perl](http://www.activestate.com/activeperl/downloads "Active Perl")
 
 Open a C:\> command prompt with "Run as administrator" or terminal as "root" and start cpan:
 
- cpan
+    cpan
 
 At the cpan prompt, install Farly:
 
- cpan> install Farly
+    cpan> install Farly
 
 This will install all the libraries required to run the Farly Script Tools.
 
@@ -48,7 +48,7 @@ On Linux, copy the f_*.pl files in **Farly-Script-Tools-master/** to **/usr/loca
 
 If everything is working the Farly Script Tools can then be run in the command prompt or terminal. For example:
 
- f_search.pl -h
+    f_search.pl -h
 
 Usage
 -----
