@@ -22,6 +22,8 @@ Download and install your preferred version of Perl. Popular Perl binaries for W
 include [Active Perl](http://www.activestate.com/activeperl/downloads "Active Perl"), and
 [Strawberry Perl](http://strawberryperl.com/ "Strawberry Perl").
 
+* * *
+
 Open a C:\> command prompt with "Run as administrator" or terminal as "root." Start cpan:
 
 > cpan
@@ -32,11 +34,17 @@ At the cpan prompt, install Farly:
 
 This will install all the libraries required to run the Farly Script Tools.
 
+* * *
+
 Download and extract the [Farly Script Tools archive](https://github.com/trystanzj/Farly-Script-Tools/archive/master.zip "Farly Script Tools archive").
+
+* * *
 
 On Windows, copy the f_*.pl files in **Farly-Script-Tools-master\** to **%PERL_DIR%\perl\site\bin\**
 
 On Linux, copy the f_*.pl files in **Farly-Script-Tools-master/** to **/usr/local/bin/**. Use chmod to make the f_*.pl scripts executable.
+
+* * *
 
 If everything is working the Farly Script Tools can then be run in the command prompt or terminal.
 
