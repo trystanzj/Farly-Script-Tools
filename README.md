@@ -24,17 +24,17 @@ include [Active Perl](http://www.activestate.com/activeperl/downloads "Active Pe
 
 Open a C:\> command prompt with "Run as administrator" or terminal and start cpan as "root":
 
-> *cpan*
+> cpan
 
 At the cpan prompt, install Farly:
 
-> *cpan> install Farly* 
+> cpan> install Farly
 
 This will install all the libraries required to run the Farly Script Tools.
 
 Download and extract the [Farly Script Tools](https://github.com/trystanzj/Farly-Script-Tools/archive/master.zip) archive.
 
-On Windows copy the f_*.pl files in **Farly-Script-Tools-master\bin\** to ***%PERL_DIR%\perl\site\bin\**
+On Windows copy the f_*.pl files in **Farly-Script-Tools-master\bin\** to **%PERL_DIR%\perl\site\bin\**
 
 On Linux copy the f_*.pl files in **Farly-Script-Tools-master/bin/** to **/usr/local/bin/**. Use chmod to make the f_*.pl scripts executable.
 
@@ -43,7 +43,7 @@ If everything is working the Farly Script Tools can then be run in the command p
 Usage
 -----
 
-[f_search.pl](https://github.com/trystanzj/Farly-Script-Tools/blob/master/doc/f_search.html "f_search.pl") can be 
+**[f_search.pl](https://github.com/trystanzj/Farly-Script-Tools/blob/master/doc/f_search.html "f_search.pl")** can be 
 used for day to day firewall troubleshooting, automated verification of organization specific firewall security
 policies, or even firewall configuration cleanups.
 
@@ -51,22 +51,25 @@ f_search.pl can search firewall access-lists by ID, source IP, source port, dest
 destination port or any combination of the above.  Search behaviour is customizable through the 
 use of the --matches or --contains options.
 
+* * *
 
-[f_analyze.pl](https://github.com/trystanzj/Farly-Script-Tools/blob/master/doc/f_analyze.html "f_analyze.pl") can help 
+**[f_analyze.pl](https://github.com/trystanzj/Farly-Script-Tools/blob/master/doc/f_analyze.html "f_analyze.pl")** can help 
 you ensure that your firewall configurations are free of technical mistakes.
  
 f_analyze.pl finds, reports on, and generates firewall configuration commands needed to remove duplicate
 or overlapping firewall rules.
 
+* * *
 
-[f_remove.pl](https://github.com/trystanzj/Farly-Script-Tools/blob/master/doc/f_remove.html "f_remove.pl") makes 
+**[f_remove.pl](https://github.com/trystanzj/Farly-Script-Tools/blob/master/doc/f_remove.html "f_remove.pl")** makes 
 it much easier to keep your firewall configurations up to date without the risk of outage causing typo’s.
 
 f_remove.pl generates the firewall configuration commands needed to remove all references to a retired
 host or network.
 
+* * *
 
-[f_rewrite.pl](https://github.com/trystanzj/Farly-Script-Tools/blob/master/doc/f_rewrite.html "f_rewrite.pl") is
+**[f_rewrite.pl](https://github.com/trystanzj/Farly-Script-Tools/blob/master/doc/f_rewrite.html "f_rewrite.pl")** is
 for interactive firewall configuration re-writes.
 
 Running f_rewrite.pl on the output of f_analyze.pl is a simple way to update and standardize your
