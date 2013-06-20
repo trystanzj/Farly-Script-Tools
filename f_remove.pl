@@ -119,4 +119,14 @@ B<Important: Usage of subnet mask format requires quotes>, for example -d "192.1
 
 =back
 
+=head1 EXAMPLES
+
+Remove firewall rule configurations in 192.168.1.0/24:
+
+  f_remove.pl --file config.txt --address 192.168.1.0/24
+
+Remove firewall rule configurations referencing host 192.168.2.1:
+
+  f_remove.pl --file config.txt --address 192.168.2.1
+
 =cut
