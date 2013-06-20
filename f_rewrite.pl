@@ -500,10 +500,16 @@ Run a full firewall rewrite. The cfg.txt "outside-in" rules are expanded and opt
 The --output commands are applied to the firewall before running the next f_rewrite.pl
 command.
 
-f_rewrite.pl --file cfg.txt --id outside-in --groupby DST_PORT --output new_dst_port_groups.txt
+Create new destination port groups:
 
-f_rewrite.pl --file cfg_with_dport_groups.txt --id outside-in --groupby SRC_IP --output new_src_groups.txt
+  f_rewrite.pl --file cfg.txt --id outside-in --groupby DST_PORT --output new_dst_port_groups.txt
 
-f_rewrite.pl --file cfg_with_dport_src_groups.txt --id outside-in --groupby DST_IP --output new_dst_groups.txt
+Create new client source IP address groups:
+
+  f_rewrite.pl --file cfg_with_dport_groups.txt --id outside-in --groupby SRC_IP --output new_src_groups.txt
+
+Create new server destination IP address groups:
+
+  f_rewrite.pl --file cfg_with_dport_src_groups.txt --id outside-in --groupby DST_IP --output new_dst_groups.txt
 
 =cut
