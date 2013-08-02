@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-# f_search.pl - Farly Script Tools - Firewall configuration search
+# f_search.pl - Farly Tools - Firewall configuration search
 # Copyright (C) 2012  Trystan Johnson
 #
 # This program is free software: you can redistribute it and/or modify

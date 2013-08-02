@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-# f_remove.pl - Farly Script Tools - Retired address removal
+# f_remove.pl - Farly Tools - Retired address removal
 # Copyright (C) 2012  Trystan Johnson
 #
 # This program is free software: you can redistribute it and/or modify

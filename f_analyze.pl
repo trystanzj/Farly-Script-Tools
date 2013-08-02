@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-# f_analyze.pl  -  Farly Script Tools - Duplicate and shadowed
+# f_analyze.pl  -  Farly Tools - Duplicate and shadowed
 #                  firewall rule analysis
 # Copyright (C) 2012  Trystan Johnson
 #

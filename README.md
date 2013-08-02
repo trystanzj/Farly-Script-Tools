@@ -1,8 +1,8 @@
-Farly Script Tools
+Farly Tools
 ==================
 
-Farly Script Tools are Perl scripts for automating firewall management
+Farly Tools are Perl scripts for automating firewall management
 tasks such as firewall audits, optimizations, cleanups, and configuration
 rewrites.
 
-For more information please see [the Farly Script Tools project page](http://trystanzj.github.io/Farly-Script-Tools/).
+For more information please see [the Farly Tools project page](http://trystanzj.github.io/Farly-Tools/).

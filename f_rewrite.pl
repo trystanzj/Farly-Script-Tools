@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-# f_rewrite.pl - Farly Script Tools - Interactive firewall rule rewrite
+# f_rewrite.pl - Farly Tools - Interactive firewall rule rewrite
 # Copyright (C) 2012  Trystan Johnson
 #
 # This program is free software: you can redistribute it and/or modify
